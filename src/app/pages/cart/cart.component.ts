@@ -7,6 +7,7 @@ import { MatCardModule } from "@angular/material/card";
 import { MatButtonModule } from "@angular/material/button";
 import { MatTableModule } from "@angular/material/table";
 import { MatIconModule } from "@angular/material/icon";
+import { CartService } from "../../services/cart.service";
 
 @Component({
   selector: "app-cart",
@@ -48,6 +49,7 @@ export class CartComponent implements OnInit {
     ],
   };
 
+  constructor(private cartService: CartService) {}
   dataSource: Array<CartItem> = [];
   displayedColumns: Array<string> = [
     "product",
@@ -63,8 +65,6 @@ export class CartComponent implements OnInit {
   }
 
   public getTotal(items: Array<CartItem>): number {
-    return items
-      .map((item) => item.price * item.quantity)
-      .reduce((acc, totalPricePerItem) => acc + totalPricePerItem, 0);
+    return this.cartService.getTotalPrice(items);
   }
 }
