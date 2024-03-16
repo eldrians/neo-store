@@ -1,16 +1,12 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
+
+import { MatSidenavModule } from "@angular/material/sidenav";
 
 @Component({
-  selector: 'app-home',
+  selector: "app-home",
   standalone: true,
-  imports: [],
-  template: `
-    <p>
-      home works!
-    </p>
-  `,
-  styles: ``
+  imports: [MatSidenavModule],
+  templateUrl: "./home.component.html",
+  styles: ``,
 })
-export class HomeComponent {
-
-}
+export class HomeComponent {}
