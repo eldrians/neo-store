@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { Cart, CartItem } from "../../models/cart.model";
 import { RouterModule } from "@angular/router";
 import { CurrencyPipe } from "@angular/common";
@@ -23,33 +23,8 @@ import { CartService } from "../../services/cart.service";
   templateUrl: "./cart.component.html",
 })
 export class CartComponent implements OnInit {
-  cart: Cart = {
-    items: [
-      {
-        id: 1,
-        product: "https://via.placeholder.com/150",
-        name: "snickers",
-        price: 150,
-        quantity: 1,
-      },
-      {
-        id: 1,
-        product: "https://via.placeholder.com/150",
-        name: "snickers",
-        price: 150,
-        quantity: 2,
-      },
-      {
-        id: 1,
-        product: "https://via.placeholder.com/150",
-        name: "snickers",
-        price: 150,
-        quantity: 1,
-      },
-    ],
-  };
+  private _cart: Cart = { items: [] };
 
-  constructor(private cartService: CartService) {}
   dataSource: Array<CartItem> = [];
   displayedColumns: Array<string> = [
     "product",
@@ -59,12 +34,39 @@ export class CartComponent implements OnInit {
     "total",
     "action",
   ];
+  itemsQuantity = 0;
+
+  constructor(private cartService: CartService) {}
 
   ngOnInit(): void {
-    this.dataSource = this.cart.items;
+    this.dataSource = this._cart.items;
+    this.cartService.cart.subscribe((_cart: Cart) => {
+      this.cart = _cart;
+      this.dataSource = this.cart.items;
+    });
+  }
+
+  @Input()
+  get cart(): Cart {
+    return this._cart;
+  }
+
+  set cart(cart: Cart) {
+    this._cart = cart;
+    this.itemsQuantity = cart.items
+      .map((item) => item.quantity)
+      .reduce((acc, itemQuantity) => acc + itemQuantity, 0);
   }
 
   public getTotal(items: Array<CartItem>): number {
     return this.cartService.getTotalPrice(items);
+  }
+
+  public onClearCart(): void {
+    this.cartService.clearCart();
+  }
+
+  public onRemoveFromCart(item: CartItem): void {
+    this.cartService.removeFromCart(item);
   }
 }
