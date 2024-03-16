@@ -3,13 +3,14 @@ import {
   Signal,
   WritableSignal,
   computed,
-  effect,
   signal,
 } from "@angular/core";
 
-import { ProductsHeaderComponent } from "./components/products-header/products-header.component";
-import { FiltersComponent } from "./components/filters/filters.component";
-import { ProductBoxComponent } from "./components/product-box/product-box.component";
+import {
+  ProductsHeaderComponent,
+  FiltersComponent,
+  ProductBoxComponent,
+} from "./components";
 
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatGridListModule } from "@angular/material/grid-list";
