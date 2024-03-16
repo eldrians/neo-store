@@ -8,7 +8,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
   providedIn: "root",
 })
 export class CartService {
-  private cart = new BehaviorSubject<Cart>({ items: [] });
+  public cart = new BehaviorSubject<Cart>({ items: [] });
 
   constructor(private _snackBar: MatSnackBar) {}
 

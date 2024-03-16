@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { CurrencyPipe } from "@angular/common";
 
@@ -30,6 +30,8 @@ export class HeaderComponent {
   itemsQuantity = 0;
 
   constructor(private cartService: CartService) {}
+
+  @Input()
   get cart(): Cart {
     return this._cart;
   }
@@ -46,6 +48,6 @@ export class HeaderComponent {
   }
 
   public onClearCart(): void {
-    this.cartService.clearCart(``);
+    this.cartService.clearCart();
   }
 }
