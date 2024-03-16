@@ -14,6 +14,8 @@ import {
 
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatGridListModule } from "@angular/material/grid-list";
+import { CartService } from "../../services/cart.service";
+import { Product } from "../../models/product.model";
 
 const ROWS_HEIGHT: { [id: number]: number } = { 1: 400, 3: 335, 4: 350 };
 
@@ -36,11 +38,23 @@ export class HomeComponent {
 
   public category!: string;
 
+  constructor(private cartService: CartService) {}
+
   public onColumnsCountChange(colsNum: number): void {
     this.cols.set(colsNum);
   }
 
   public onShowCategory(newCategory: string): void {
     this.category = newCategory;
+  }
+
+  public onAddToCart(product: Product): void {
+    this.cartService.addToCart({
+      product: product.image,
+      name: product.title,
+      price: product.price,
+      quantity: 1,
+      id: product.id,
+    });
   }
 }
