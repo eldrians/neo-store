@@ -7,7 +7,11 @@
   </mat-drawer>
 
   <mat-drawer-content class="p-6">
-    <app-products-header (columnsCountChange)="onColumnsCountChange($event)" />
+    <app-products-header
+      (columnsCountChange)="onColumnsCountChange($event)"
+      (itemsCountChange)="onItemsCountChange($event)"
+      (sortChange)="onSortChange($event)"
+    />
     <mat-grid-list gutterSize="16" [cols]="cols()" [rowHeight]="rowHeight()">
       @for (product of products; track product.id) {
       <mat-grid-tile>

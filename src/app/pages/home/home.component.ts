@@ -77,6 +77,16 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.cols.set(colsNum);
   }
 
+  public onItemsCountChange(newCount: number): void {
+    this.count = newCount.toString();
+    this.getProducts();
+  }
+
+  public onSortChange(newSort: string): void {
+    this.sort = newSort;
+    this.getProducts();
+  }
+
   public onShowCategory(newCategory: string): void {
     this.category = newCategory;
   }
